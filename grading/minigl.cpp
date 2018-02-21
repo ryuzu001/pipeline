@@ -403,6 +403,15 @@ void mglFrustum(MGLfloat left,
                 MGLfloat near,
                 MGLfloat far)
 {
+	if(matrix_mode == MGL_PROJECTION){
+		// https://lmb.informatik.uni-freiburg.de/people/reisert/opengl/doc/glFrustum.f1.gif
+		float A,B,C,D;
+		A = (right + left)/(right - left);
+		B = (top + bottom)/(top - bottom);
+		C = (far + near)/(far - near);
+		D = (2 * far * near)/(far - near);
+		projection = {{(2 * near)/(right - left), 0, 0, 0, 0, (2 * near)/(top - bottom), 0, 0, A, B, C, -1, 0, 0, D, 0}};
+	}
 }
 
 /**
